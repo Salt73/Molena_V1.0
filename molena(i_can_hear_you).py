@@ -1,8 +1,8 @@
 # PLEASE REMOVE THE BELOW COMMENT SECTION AND RUN IT IF YOU DON'ST HAVE THOSE LIBRARIES INSTALLED BEFORE IN ORDER TO USE THE PROGRAM IN A PROPER WAY
 '''
-pip install pyttsx3
-pip install speechrecognition
-pip install pyaudio
+!pip install pyttsx3
+!pip install speechrecognition
+!pip install pyaudio
 '''
 import tkinter as tk
 from tkinter import messagebox
