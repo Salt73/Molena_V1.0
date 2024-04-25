@@ -5,7 +5,6 @@ import speech_recognition as sr
 import pyttsx3
 import os
 
-# Initialize speech recognizer and TTS engine
 r = sr.Recognizer()
 engine = pyttsx3.init()
 
@@ -41,12 +40,13 @@ def on_hear_button_click():
         print("wrote text")
 
 def on_stop_button_click():
-    print("Stop button clicked")
+    r.stop() 
+    print("Stopped listening to the microphone")
 
 def on_delete_button_click():
     file_path = "My_Words.txt"
     try:
-        # Open the file in write mode to clear its contents
+        
         with open(file_path, "w") as f:
             f.write("")  # Write an empty string to clear the file
         
@@ -57,16 +57,13 @@ def on_delete_button_click():
     except FileNotFoundError:
         messagebox.showerror("Error", "File not found!")
 
-# Create the main window
 root = tk.Tk()
 root.title("Speech Recognition")
 
-# Create text display
 text_display = tk.Text(root, height=10, width=50)
 text_display.pack(pady=20)
 text_display.config(state=tk.DISABLED)
 
-# Create buttons
 hear_button = tk.Button(root, text="Hear", command=on_hear_button_click)
 hear_button.pack(side=tk.LEFT, padx=10)
 
