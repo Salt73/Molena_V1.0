@@ -1,10 +1,15 @@
+# PLEASE REMOVE THE BELOW COMMENT SECTION AND RUN IT IF YOU DON'ST HAVE THOSE LIBRARIES INSTALLED BEFORE IN ORDER TO USE THE PROGRAM IN A PROPER WAY
+'''
+pip install pyttsx3
+pip install speechrecognition
+pip install pyaudio
+'''
 import tkinter as tk
 from tkinter import messagebox
 import speech_recognition as sr
 import pyttsx3
 import os
 
-# Initialize speech recognizer and TTS engine
 r = sr.Recognizer()
 engine = pyttsx3.init()
 
@@ -46,7 +51,7 @@ def on_hear_button_click():
 
 def on_stop_button_click():
     global listening
-    listening = False  # Stop listening
+    listening = False  
     print("Stopped listening to the microphone")
 
 def on_delete_button_click():
@@ -65,7 +70,6 @@ def on_delete_button_click():
 root = tk.Tk()
 root.title("Speech Recognition")
 
-# Create text display
 text_display = tk.Text(root, height=10, width=50)
 text_display.pack(pady=20)
 text_display.config(state=tk.DISABLED)
