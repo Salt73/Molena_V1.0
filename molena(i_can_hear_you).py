@@ -1,27 +1,30 @@
-# -*- coding: utf-8 -*-
 import tkinter as tk
 from tkinter import messagebox
 import speech_recognition as sr
 import pyttsx3
 import os
 
+# Initialize speech recognizer and TTS engine
 r = sr.Recognizer()
 engine = pyttsx3.init()
 
+listening = False  # Flag to control listening loop
+
 def hear():
-    while(1):
+    global listening
+    while listening:
         try:
             with sr.Microphone() as source:
                 r.adjust_for_ambient_noise(source, duration=0.2)
                 audio = r.listen(source)
-                my_txt = r.recognize_google(audio, language="ar")
+                my_txt = r.recognize_google(audio, language="ar-SA, en-US")
                 return my_txt
         except sr.UnknownValueError:
-            print("Could not understand audio in English.")
+            print("Could not understand audio.")
         except sr.RequestError as e:
-            print(f"Could not request results in English: {e}")
+            print(f"Could not request results: {e}")
         
-        return ""
+    return ""
 
 def write(text):
     file_path = "My_Words.txt"
@@ -31,6 +34,8 @@ def write(text):
         f.write("\n")
 
 def on_hear_button_click():
+    global listening
+    listening = True
     text = hear()
     if text:
         text_display.config(state=tk.NORMAL)
@@ -40,13 +45,13 @@ def on_hear_button_click():
         print("wrote text")
 
 def on_stop_button_click():
-    r.stop() 
+    global listening
+    listening = False  # Stop listening
     print("Stopped listening to the microphone")
 
 def on_delete_button_click():
     file_path = "My_Words.txt"
     try:
-        
         with open(file_path, "w") as f:
             f.write("")  # Write an empty string to clear the file
         
@@ -60,6 +65,7 @@ def on_delete_button_click():
 root = tk.Tk()
 root.title("Speech Recognition")
 
+# Create text display
 text_display = tk.Text(root, height=10, width=50)
 text_display.pack(pady=20)
 text_display.config(state=tk.DISABLED)
