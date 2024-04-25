@@ -10,18 +10,19 @@ r = sr.Recognizer()
 engine = pyttsx3.init()
 
 def hear():
-    try:
-        with sr.Microphone() as source:
-            r.adjust_for_ambient_noise(source, duration=0.2)
-            audio = r.listen(source)
-            my_txt = r.recognize_google(audio, language="ar")
-            return my_txt
-    except sr.UnknownValueError:
-        print("Could not understand audio in English.")
-    except sr.RequestError as e:
-        print(f"Could not request results in English: {e}")
-    
-    return ""
+    while(1):
+        try:
+            with sr.Microphone() as source:
+                r.adjust_for_ambient_noise(source, duration=0.2)
+                audio = r.listen(source)
+                my_txt = r.recognize_google(audio, language="ar")
+                return my_txt
+        except sr.UnknownValueError:
+            print("Could not understand audio in English.")
+        except sr.RequestError as e:
+            print(f"Could not request results in English: {e}")
+        
+        return ""
 
 def write(text):
     file_path = "My_Words.txt"
